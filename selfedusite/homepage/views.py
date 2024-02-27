@@ -28,10 +28,11 @@ cats_db = [
 ]
 
 def index(request):
+    posts = Car.objects.all()
     data = {
         'title': 'Главная страница',
         'menu': menu,
-        'posts': data_db,
+        'posts': posts,
     }
     return render(request, 'homepage/index.html', context=data)
 
@@ -40,9 +41,8 @@ def about(request):
     return render(request, 'homepage/about.html', {'title': 'О сайте', 'menu': menu})
 
 
-def show_post(request, post_id):
-    post = get_object_or_404(Car, pk=post_id)
-    print(post.content)
+def show_post(request, post_slug):
+    post = get_object_or_404(Car, slug=post_slug)
     data = {
         'title': post.title,
         'menu': menu,
